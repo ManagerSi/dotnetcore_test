@@ -22,7 +22,7 @@ namespace sql_server_application_test
             //异步-->Parallel类的For方法并没有等待延迟，而是直接完成. parallel类只等待它创建的任务，而不等待其它后台活动
             //MockMutiApplicationToRunAsycn();
 
-            Console.WriteLine("===================================Down!==================================");
+            Console.WriteLine("===================================Done!==================================");
             Console.ReadKey();
         }
 
