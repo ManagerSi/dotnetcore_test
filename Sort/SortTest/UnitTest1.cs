@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using NUnit.Framework;
 using Sort;
 
@@ -20,9 +21,10 @@ namespace SortTest
         [Test]
         public void BubbleSort_Test()
         {
+            Console.WriteLine("*****√∞≈›≈≈–Ú****************************");
             var arr = BaseTenSorts.GetIntArray(10, 1000);
             arr.Show();
-            Console.WriteLine("**********************************************************");
+            Console.WriteLine("****************************************");
 
             //√∞≈›
             arr.BubbleSort();
@@ -30,16 +32,37 @@ namespace SortTest
             //ºÏ≤È
             for (int i = 0; i < arr.Length-1; i++)
             {
-                Assert.Less(arr[i],arr[i+1]);
-
+                Assert.LessOrEqual(arr[i],arr[i+1]);
             }
         }
         [Test]
-        public void SelectionSort_Test()
+        public void QuickSort_Test()
         {
+            Console.WriteLine("*****—°‘Ò≈≈–Ú*************************");
             var arr = BaseTenSorts.GetIntArray(10, 1000);
             arr.Show();
-            Console.WriteLine("**********************************************************");
+            Console.WriteLine("**************************************");
+
+            //—°‘Ò
+            arr.QuickSort();
+
+            //ºÏ≤È
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Assert.LessOrEqual(arr[i], arr[i + 1]);
+            }
+        }
+
+
+
+
+        [Test]
+        public void SelectionSort_Test()
+        {
+            Console.WriteLine("*****—°‘Ò≈≈–Ú*************************");
+            var arr = BaseTenSorts.GetIntArray(10, 1000);
+            arr.Show();
+            Console.WriteLine("**************************************");
 
             //—°‘Ò
             arr.SelectionSort();
@@ -47,8 +70,7 @@ namespace SortTest
             //ºÏ≤È
             for (int i = 0; i < arr.Length - 1; i++)
             {
-                Assert.Less(arr[i], arr[i + 1]);
-
+                Assert.LessOrEqual(arr[i], arr[i + 1]);
             }
         }
     }
