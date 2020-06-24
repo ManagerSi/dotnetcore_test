@@ -46,7 +46,7 @@ namespace Sort
         /// <param name="arr"></param>
         /// <param name="i"></param>
         /// <param name="pivot"></param>
-        private static void Swep(int[] arr, int i, int j)
+        private static void Swap(int[] arr, int i, int j)
         {
             int temp = arr[j];
             arr[j] = arr[i];
@@ -73,9 +73,7 @@ namespace Sort
                 {
                     if (arr[j] > arr[j + 1])
                     {
-                        var temp = arr[j + 1];
-                        arr[j + 1] = arr[j];
-                        arr[j] = temp;
+                        Swap(arr, j, j+1);
                     }
                 }
                 arr.Show();
@@ -129,11 +127,11 @@ namespace Sort
                 if (arr[i] < arr[pivot])
                 {
                     if(i!=index)
-                        Swep(arr,i,index);
+                        Swap(arr,i,index);
                     index++;
                 }
             }
-            Swep(arr, pivot, index-1);
+            Swap(arr, pivot, index-1);
 
             arr.Show();
 
