@@ -53,6 +53,23 @@ namespace SortTest
             }
         }
 
+        [Test]
+        public void InsertSort_Test()
+        {
+            Console.WriteLine("*****≤Â»Î≈≈–Ú*************************");
+            var arr = BaseTenSorts.GetIntArray(10, 1000);
+            arr.Show();
+            Console.WriteLine("**************************************");
+
+            //—°‘Ò
+            arr.InsertSort();
+
+            //ºÏ≤È
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Assert.LessOrEqual(arr[i], arr[i + 1]);
+            }
+        }
 
 
 
