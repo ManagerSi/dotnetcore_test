@@ -170,6 +170,42 @@ namespace Sort
             }
         }
 
+        /// <summary>
+        /// 希尔排序这个名字，来源于它的发明者希尔，也称作“缩小增量排序”，是插入排序的一种更高效的改进版本。
+        /// 插入排序对于大规模的乱序数组的时候效率是比较慢的，因为它每次只能将数据移动一位，
+        /// 希尔排序为了加快插入的速度，让数据移动的时候可以实现跳跃移动，节省了一部分的时间开支。
+        /// 
+        /// 最好情况的时间复杂度是O(n)，
+        /// 最坏情况的时间复杂度是O(n^2)
+        /// </summary>
+        /// <param name="arr"></param>
+        public static void ShellSort(this int[] arr)
+        {
+            if (arr == null || arr.Length < 2) return;
+
+            //设置步长h，实现分组
+            for (int h = arr.Length/2; h > 0; h/=2)
+            {
+                int index,//有序数组的尾部
+                    tempI;//当前循环的数值
+                //循环每个分组
+                for (int i = h; i < arr.Length; i++)
+                {
+                    //arr[h-i] 所在的分组为 ... arr[i-2*h],arr[i-h], arr[i+h] ...
+                    index = i - h;//有序数组尾部
+                    tempI = arr[i];//当前循环的数值
+                    while (index >= 0 && tempI < arr[index]) //当前值<有序数组最后一个，则需要交换
+                    {
+                        arr[index + h] = arr[index];
+                        index-=h;
+                    }
+                    arr[index+h] = tempI;
+                }
+
+                arr.Show();
+            }
+        }
+
         #endregion 插入排序（简单插入/希尔排序）
 
         #region 选择排序（简单选择排序/堆排序）

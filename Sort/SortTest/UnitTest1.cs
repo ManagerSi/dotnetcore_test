@@ -71,6 +71,23 @@ namespace SortTest
             }
         }
 
+        [Test]
+        public void ShellSort_Test()
+        {
+            Console.WriteLine("*****Ï£¶ûÅÅÐò*************************");
+            var arr = BaseTenSorts.GetIntArray(10, 1000);
+            arr.Show();
+            Console.WriteLine("**************************************");
+
+            //Ñ¡Ôñ
+            arr.ShellSort();
+
+            //¼ì²é
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Assert.LessOrEqual(arr[i], arr[i + 1]);
+            }
+        }
 
 
         [Test]
