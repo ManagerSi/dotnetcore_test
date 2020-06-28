@@ -107,5 +107,24 @@ namespace SortTest
                 Assert.LessOrEqual(arr[i], arr[i + 1]);
             }
         }
+
+        [Test]
+        public void MergeSort_Test()
+        {
+            Console.WriteLine("*****πÈ≤¢≈≈–Ú*************************");
+            var arr = BaseTenSorts.GetIntArray(10, 1000);
+            arr.Show();
+            Console.WriteLine("**************************************");
+
+            //—°‘Ò
+            arr.MergeSort();
+
+            //ºÏ≤È
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                Assert.LessOrEqual(arr[i], arr[i + 1]);
+            }
+        }
+        
     }
 }

@@ -253,7 +253,64 @@ namespace Sort
         #endregion 选择排序（简单选择排序/堆排序）
 
         #region 归并排序（二路归并排序/多路归并排序）
+        /// <summary>
+        /// 归并算法的核心思想是分治法，就是将一个数组一刀切两半，
+        /// 递归切，直到切成单个元素，
+        /// 然后重新组装合并，单个元素合并成小数组，两个小数组合并成大数组，
+        /// 直到最终合并完成，排序完毕。
+        /// </summary>
+        /// <param name="arr"></param>
+        public static void MergeSort(this int[] arr)
+        {
+            int[] tempArr = new int[arr.Length];
 
+            SubMergeSort(arr, tempArr, 0, arr.Length-1);
+        }
+        /**
+         * 归并排序
+         * @param arr 排序数组
+         * @param tempArr 临时存储数组
+         * @param startIndex 排序起始位置
+         * @param endIndex 排序终止位置
+         */
+        private static void SubMergeSort(int[] arr, int[] tempArr, int left, int right)
+        {
+            if (left >= right)
+                return;
+
+            //中部下标
+            int center = left + (right - left) / 2;
+
+            //分解
+            SubMergeSort(arr, tempArr, left, center);
+            SubMergeSort(arr, tempArr, center + 1, right);
+
+            //归并
+            Merge(arr, tempArr, left, center, right);
+
+            arr.Show();
+        }
+        private static void Merge(int[] arr, int[] tempArr, int left, int middleIndex, int right)
+        {
+            int i = left,
+                j = middleIndex+1,
+                k = left;
+            while (i<= middleIndex && j<= right)
+            {
+                if (arr[i] < arr[j])
+                    tempArr[k++] = arr[i++]; 
+                else 
+                    tempArr[k++] = arr[j++]; 
+            }
+            while(i<=middleIndex)
+                tempArr[k++] = arr[i++];
+            while (j <= right)
+                tempArr[k++] = arr[j++];
+
+            for (int l = left; l <= right; l++)
+                arr[l] = tempArr[l];
+            
+        }
 
 
         #endregion 归并排序（二路归并排序/多路归并排序）
