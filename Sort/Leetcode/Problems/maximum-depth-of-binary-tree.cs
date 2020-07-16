@@ -5,6 +5,11 @@ using Leetcode.Model;
 
 namespace Leetcode.Problems
 {
+    /// <summary>
+    /// 104. 二叉树的最大深度
+    /// 
+    /// https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+    /// </summary>
     public class maximum_depth_of_binary_tree
     {
         public int MaxDepth(TreeNode root)
