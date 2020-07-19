@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Leetcode.Problems
 {
+    /// <summary>
+    /// 239. 滑动窗口最大值
+    /// 
+    /// </summary>
     public class sliding_window_maximum
     {
         /// <summary>
