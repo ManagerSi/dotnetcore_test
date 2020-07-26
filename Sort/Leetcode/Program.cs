@@ -1,4 +1,5 @@
 ﻿using System;
+using Leetcode.Problems;
 
 namespace Leetcode
 {
@@ -7,6 +8,12 @@ namespace Leetcode
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            var tClass = new print_in_order();
+            tClass.test();
+
+            Console.ReadKey();
+
         }
     }
 }
