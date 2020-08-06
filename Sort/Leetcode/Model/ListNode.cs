@@ -26,5 +26,20 @@ namespace Leetcode.Model
             this.val = val;
             this.next = next;
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(val);
+
+            var tempN = next;
+            while (tempN != null)
+            {
+                sb.Append(",");
+                sb.Append(tempN.val);
+                tempN = tempN.next;
+            }
+            return sb.ToString();
+        }
     }
 }
