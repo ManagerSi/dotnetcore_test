@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Leetcode.Problems.剑指offer
 {
+    /// <summary>
+    /// 剑指 Offer 47. 礼物的最大价值
+    /// https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof
+    /// </summary>
     public class li_wu_de_zui_da_jie_zhi_lcof
     {
         /// <summary>
