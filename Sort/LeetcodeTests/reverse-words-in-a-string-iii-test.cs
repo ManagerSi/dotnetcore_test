@@ -28,5 +28,24 @@ namespace LeetcodeTests
             res = target.ReverseWords(s);
             Assert.True(res == "ds as");
         }
+
+        [Test]
+        public void test_V3()
+        {
+            string s = "Let's take LeetCode contest";
+            var res = target.ReverseWords_V3(s);
+            Assert.True(res == "s'teL ekat edoCteeL tsetnoc");
+
+            //s is empty
+            s = "";
+            res = target.ReverseWords_V3(s);
+            Assert.True(res == "");
+
+
+            //space at start
+            s = " sd sa";
+            res = target.ReverseWords_V3(s);
+            Assert.True(res == "ds as");
+        }
     }
 }
