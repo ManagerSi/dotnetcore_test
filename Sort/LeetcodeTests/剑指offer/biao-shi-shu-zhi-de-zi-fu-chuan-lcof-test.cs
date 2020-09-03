@@ -52,5 +52,24 @@ namespace LeetcodeTests.剑指offer
                 Assert.False(res);
             }
         }
+
+        [Test]
+        public void test_V3()
+        {
+            var trueStr = new string[]{ "1 ","+100","5e2","-123","3.1416","-1E-16","0123"
+            };
+            foreach (var s in trueStr)
+            {
+                var res = target.IsNumber_V3(s);
+                Assert.True(res);
+            }
+
+            var falseStr = new string[] { ".8+", "12e", "1a3.14", "1.2.3", "+-5", "12e+5.4" };
+            foreach (var s in falseStr)
+            {
+                var res = target.IsNumber_V3(s);
+                Assert.False(res);
+            }
+        }
     }
 }
