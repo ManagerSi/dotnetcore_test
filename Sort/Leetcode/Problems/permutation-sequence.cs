@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Leetcode.Extend;
 
 namespace Leetcode.Problems
 {
@@ -86,6 +88,97 @@ namespace Leetcode.Problems
                 }
                 return sb.ToString();
             
+        }
+
+        /// <summary>
+        /// dfs
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public string GetPermutation_v2(int n, int k)
+        {
+            res = new List<string>();
+            depth = 0;
+
+            //init nums //生成nums数组
+            List<string> nums = new List<string>();
+            for (int i = 1; i <= n; i++)
+            {
+                nums.Add(i.ToString());
+            }
+
+            //记录当前的索引的数是否被使用过
+            bool[] used = new bool[n];
+
+            var index = k / n;
+            return dfs(nums,used, k);
+        }
+
+        private List<string> res = new List<string>();
+        private int depth;
+
+
+        /// <summary>
+        ///def dfs(n){                         //可以描述阶段的状态
+        ///     if(valid) {收集结果，返回}	        //出口条件
+        ///     if(pruning) return;             //剪枝，这一步是为了加快回溯过程，降低程序执行时间
+        ///     for(i:1~p)
+        ///     {                               //选择该阶段的所有决策
+        ///         选择可行决策;                   //剪枝的一种 
+        ///         add;                          //标记已访问该点
+        ///         DFS(n + 1);                     //进入下一阶段
+        ///         if(valid) {返回}
+        ///         recover;                      //还原
+        ///     }
+        /// }
+        /// </summary>
+        /// <param name="nums">数组</param>
+        /// <param name="used"></param>
+        /// <param name="depth"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private string dfs(List<string> nums, bool[] used, int target)
+        {
+            //出口条件
+            if (res.Count == nums.Count)
+            {
+                depth++;
+
+                //出口条件
+                if (depth == target)
+                {
+                    return string.Join("",res);
+                }
+
+                //剪枝
+                return null;
+            }
+            
+            for (int i = 0; i < nums.Count; i++)
+            {
+                //剪枝
+                if (res.Contains(nums[i]))
+                    continue;
+
+                //标记使用
+                used[i] = true;
+                res.Add(nums[i]);
+                //递归循环
+                var result = dfs(nums, used, target);
+                //出口条件
+                if (!string.IsNullOrEmpty(result))
+                {
+                    return result;
+                }
+
+                //还原
+                used[i] = false;
+                res.Remove(nums[i]);
+
+            }
+
+            return null;
         }
     }
 }
