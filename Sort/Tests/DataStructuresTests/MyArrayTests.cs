@@ -16,8 +16,27 @@ namespace Tests.DataStructuresTests
             target = new MyArray<int>(5);
             for (int i = 0; i < 5; i++)
             {
-                target[i] = i;
+                target.Add(i);
+
             }
+        }
+        [Test]
+        public void IsEmpty_test()
+        {
+            var res = target.IsEmpty();
+            Assert.False(res);
+
+            target.Clear();
+
+            res = target.IsEmpty();
+            Assert.True(res);
+        }
+
+        [Test]
+        public void GetIndex_test()
+        {
+            var res = target.GetIndex(3);
+            Assert.True(res == 4);
         }
 
         [Test]
@@ -33,7 +52,7 @@ namespace Tests.DataStructuresTests
         {
             target.Insert(1,5);
             Assert.True(target.Length == 6);
-            Assert.True(target.ToString() == "0,5,1,2,3,4");
+            Assert.True(target.ToString() == "5,0,1,2,3,4");
         }
 
         [Test]
@@ -41,7 +60,7 @@ namespace Tests.DataStructuresTests
         {
             target.RemoveAt(1);
             Assert.True(target.Length == 4);
-            Assert.True(target.ToString() == "0,2,3,4,0");
+            Assert.True(target.ToString() == "1,2,3,4");
         }
 
         [Test]
@@ -49,7 +68,7 @@ namespace Tests.DataStructuresTests
         {
             target.Remove(1);
             Assert.True(target.Length == 4);
-            Assert.True(target.ToString() == "0,2,3,4,0");
+            Assert.True(target.ToString() == "1,2,3,4");
         }
 
         [Test]
