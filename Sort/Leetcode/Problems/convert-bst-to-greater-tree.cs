@@ -87,7 +87,7 @@ namespace Leetcode.Problems
                     var node = nodeStack.Pop();
                     sumofTree -= node.val;
                     node.val += sumofTree;
-                    node = node.right;
+                    res = node.right;
                 }
                 
             }
