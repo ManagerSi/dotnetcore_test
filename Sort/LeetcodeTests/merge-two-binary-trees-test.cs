@@ -48,5 +48,24 @@ namespace LeetcodeTests
             result = target.MergeTrees_V2(t1, t2);
             Assert.IsTrue(result?.ToInorderString() == null);
         }
+
+        [Test]
+        public void test_V3()
+        {
+            var t1 = new TreeNode(1, new TreeNode(3, new TreeNode(5)), new TreeNode(2));
+            var t2 = new TreeNode(2, new TreeNode(1, null, new TreeNode(4)), new TreeNode(3, null, new TreeNode(7)));
+            var result = target.MergeTrees_V3(t1, t2);
+            Assert.IsTrue(result.ToInorderString() == "5,4,4,3,5,7");
+
+            t1 = null;
+            t2 = new TreeNode(2, new TreeNode(1, null, new TreeNode(4)), new TreeNode(3, null, new TreeNode(7)));
+            result = target.MergeTrees_V3(t1, t2);
+            Assert.IsTrue(result.ToInorderString() == "1,4,2,3,7");
+
+            t1 = null;
+            t2 = null;
+            result = target.MergeTrees_V3(t1, t2);
+            Assert.IsTrue(result?.ToInorderString() == null);
+        }
     }
 }
