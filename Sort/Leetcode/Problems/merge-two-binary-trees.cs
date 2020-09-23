@@ -41,9 +41,9 @@ namespace Leetcode.Problems
 
             var newRoot = new TreeNode((t1?.val ?? 0) + (t2?.val ?? 0));
 
-            newRoot.left = DFS(t1?.left, t2?.left);
+            newRoot.left = MergeTrees_V2(t1?.left, t2?.left);
 
-            newRoot.right = DFS(t1?.right, t2?.right);
+            newRoot.right = MergeTrees_V2(t1?.right, t2?.right);
 
             return newRoot;
         }
