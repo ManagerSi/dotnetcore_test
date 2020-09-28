@@ -32,6 +32,7 @@ namespace Leetcode.Problems
             var subtraction = sum - root.val;
             path.Add(root.val);
 
+            //加入结果
             if (root.left == null && root.right == null && subtraction == 0)
             {
                 resultList.Add(path.GetRange(0, path.Count));
@@ -43,7 +44,7 @@ namespace Leetcode.Problems
             //计算右子树
             DFS(root.right, subtraction);
 
-            //删除自己
+            //恢复-删除自己
             path.RemoveAt(path.Count - 1);
         }
     }
