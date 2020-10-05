@@ -18,20 +18,20 @@ namespace Leetcode.Problems
             Array.Sort(nums);
 
             //2. 双指针法
-            int L , R = 0;
+            int L, R = 0;
             for (int i = 0; i < nums.Length; i++)
             {
                 if (i > 0 && nums[i] == nums[i - 1])
                     continue;
 
-                for (int j = i+1; j < nums.Length; j++)
+                for (int j = i + 1; j < nums.Length; j++)
                 {
                     if (j > i + 1 && nums[j] == nums[j - 1])
                         continue;
 
                     L = j + 1;
                     R = nums.Length - 1;
-                    while (L<R)
+                    while (L < R)
                     {
                         int sum = nums[i] + nums[j] + nums[L] + nums[R];
                         if (sum == target)
@@ -49,7 +49,7 @@ namespace Leetcode.Problems
                 }
             }
 
-            return result ;
+            return result;
         }
     }
 }
