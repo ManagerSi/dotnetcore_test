@@ -27,5 +27,15 @@ namespace Leetcode
             Console.WriteLine(string.Join(',',arr));
         }
 
+        public static string ToArrayString(this int[] arr)
+        {
+            if (arr == null || arr.Length == 0)
+            {
+                return null;
+            }
+
+            return string.Join(',', arr);
+        }
+
     }
 }
