@@ -2,9 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DataStructures
 {
+    public interface IMyQueue<T>
+    {
+        void Clear();
+
+        void Enqueue(T item);
+
+        T Dequeue();
+
+        T Peek();
+
+        bool Contains(T item);
+
+        T GetElement(int i);
+    }
+
     /// <summary>
     /// 单链表结构与顺序存储结构优缺点分析
     /// 
@@ -40,17 +56,126 @@ namespace DataStructures
     {
         public T Data;
         public MyQueueNode<T> Next;
-        
+        public MyQueueNode(T value)
+        {
+            Data = value;
+        }
     }
 
-    public class MyQueueWithNode<T>
+    public class MyQueueWithNode<T>: IMyQueue<T>
     {
         private int _size { get; set; }
-        private MyQueueNode<T> _head { get; set; }
+        private MyQueueNode<T> _head { get; set; } //头节点不含数据
+
+        public MyQueueWithNode()
+        {
+            _head=new MyQueueNode<T>(default(T));
+            _size = 0;
+        }
+
+        public override string ToString()
+        {
+            if(_size==0)
+                return String.Empty;
+            var tempH = _head.Next;
+            StringBuilder sb = new StringBuilder();
+            while (tempH!=null)
+            {
+                sb.Append(tempH.Data?.ToString());
+                sb.Append(",");
+
+                tempH = tempH.Next;
+            }
+
+            return sb.ToString(0, sb.Length - 1);
+        }
+
+        public void Clear()
+        {
+            var tempH = _head.Next;
+            _head.Next = null;
+            _size = 0;
+
+            while (tempH != null)
+            {
+                var temp = tempH;
+                tempH = tempH.Next;
+
+                temp.Data = default(T);
+                temp.Next = null;
+            }
+
+        }
 
         public void Enqueue(T item)
         {
-            throw new NotImplementedException();
+            var tempH = _head;
+            while (tempH.Next != null)
+                tempH = tempH.Next;
+
+            tempH.Next = new MyQueueNode<T>(item);
+            _size++;
+        }
+
+        public T Dequeue()
+        {
+            if(_size==0)
+                throw new InvalidOperationException("queue is empty");
+
+            var temp = _head.Next;
+            _head.Next = temp.Next;
+            _size--;
+
+            var date = temp.Data;
+            temp.Next = null;
+            temp = null;
+
+            return date;
+        }
+
+        public T Peek()
+        {
+            if (_size == 0)
+                throw new InvalidOperationException("queue is empty");
+            
+            return _head.Next.Data;
+        }
+
+        public bool Contains(T item)
+        {
+            if (_size == 0)
+                return false;
+
+            var match = EqualityComparer<T>.Default;
+            var tempH = _head.Next;
+            while (tempH!=null)
+            {
+                if (item == null && tempH.Data == null)
+                    return true;
+                if (match.Equals(item, tempH.Data))
+                    return true;
+
+                tempH = tempH.Next;
+            }
+
+            return false;
+        }
+
+        public T GetElement(int i)
+        {
+            if (_size == 0)
+                throw new InvalidOperationException("queue is empty");
+
+            if(i>_size || i<=0)
+                throw new ArgumentOutOfRangeException();
+
+            var tempH = _head.Next;
+            while (i-- > 0 && tempH!=null)
+            {
+                tempH = tempH.Next;
+            }
+
+            return tempH.Data;
         }
     }
 

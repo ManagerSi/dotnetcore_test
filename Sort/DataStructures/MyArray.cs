@@ -4,6 +4,32 @@ using System.Text;
 
 namespace DataStructures
 {
+    public interface IMyArray<T>
+    {
+
+        bool IsEmpty();
+
+
+        int GetIndex(T data);
+
+        void Add(T data);
+
+
+        void Insert(int index, T data);
+
+
+        void RemoveAt(int index);
+
+
+        void Remove<T>(T data) where T : IComparable;
+
+        void RemoveAll();
+
+        void Clear();
+
+
+    }
+
     /// <summary>
     /// ADT 线性表（List）
     /// Data
@@ -21,7 +47,7 @@ namespace DataStructures
     /// https://mp.weixin.qq.com/s/pAJdtJFiH3Gh_ca-MWF7xg
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MyArray<T>
+    public class MyArray<T> : IMyArray<T>
     {
         private const int _defaultSize = 20;
         private T[] _array { get; set; }
@@ -50,8 +76,9 @@ namespace DataStructures
 
         public int Length
         {
-            get { return _dataLength;}
+            get { return _dataLength; }
         }
+
 
         public bool IsEmpty()
         {
