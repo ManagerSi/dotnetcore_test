@@ -47,5 +47,44 @@ namespace Leetcode.Problems
 
             return head;
         }
+
+
+        /// <summary>
+        /// 栈
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public ListNode RemoveNthFromEnd_V2(ListNode head, int n)
+        {
+            if (head == null)
+                return head;
+
+            var tempH = head;
+            var stack = new Stack<ListNode>();
+            while (tempH != null)
+            {
+                stack.Push(tempH);
+                tempH = tempH.next;
+            }
+
+            ListNode target = null;
+            while (n-- > 0 && stack.Count > 0)
+            {
+                target = stack.Pop();
+            }
+
+            if (stack.Count>0)
+            {
+                var pre = stack.Peek();
+                pre.next = target?.next;
+            }
+            else
+            {
+                head = target?.next;
+            }
+
+            return head;
+        }
     }
 }
