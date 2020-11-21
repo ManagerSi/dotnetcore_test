@@ -41,5 +41,31 @@ namespace LeetcodeTests
             var res = target.InsertionSortList_V3(input);
             return (res.ToString());
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        private sort_list target2 = new sort_list();
+        
+        [TestCaseSource("testCaseDatas")]
+        public string sort_list_test(ListNode input)
+        {
+            var res = target2.SortList(input);
+            return res.ToString();
+        }
+
+        [TestCaseSource("testCaseDatas")]
+        public string sort_list_test_V2(ListNode input)
+        {
+            var res = target2.SortList_V2(input);
+            return res.ToString();
+        }
+
+        [TestCaseSource("testCaseDatas")]
+        public string sort_list_test_V3(ListNode input)
+        {
+            var res = target2.SortList_V3(input);
+            return res.ToString();
+        }
     }
 }
