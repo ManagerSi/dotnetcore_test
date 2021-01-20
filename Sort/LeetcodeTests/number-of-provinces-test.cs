@@ -31,5 +31,11 @@ namespace LeetcodeTests
         {
             return target.FindCircleNum(isConnected);
         }
+        [Test]
+        [TestCaseSource("getDatas")]
+        public int test_V2(int[][] isConnected)
+        {
+            return target.FindCircleNum_V2(isConnected);
+        }
     }
 }
