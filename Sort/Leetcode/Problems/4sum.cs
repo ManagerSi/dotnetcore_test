@@ -9,7 +9,7 @@ namespace Leetcode.Problems
     /// https://leetcode-cn.com/problems/4sum/
     /// </summary>
     public class _4sum
-    {
+    { 
         public IList<IList<int>> FourSum(int[] nums, int target)
         {
             IList<IList<int>> result = new List<IList<int>>();
