@@ -35,5 +35,11 @@ namespace LeetcodeTests
         {
             return target.NumEquivDominoPairs(dominoes);
         }
+
+        [TestCaseSource("geTestCaseDatas")]
+        public int test_V2(int[][] dominoes)
+        {
+            return target.NumEquivDominoPairs_V2(dominoes);
+        }
     }
 }
