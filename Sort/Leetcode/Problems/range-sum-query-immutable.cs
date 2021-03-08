@@ -6,6 +6,7 @@ namespace Leetcode.Problems
 {
     /// <summary>
     /// 303. 区域和检索 - 数组不可变
+    /// https://leetcode-cn.com/problems/range-sum-query-immutable/
     /// </summary>
     public class range_sum_query_immutable
     {
