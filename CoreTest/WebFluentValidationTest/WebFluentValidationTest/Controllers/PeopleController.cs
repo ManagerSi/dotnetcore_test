@@ -17,7 +17,7 @@ namespace WebFluentValidationTest.Controllers
         {
             if (!ModelState.IsValid)
             { // re-render the view when validation failed.
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             return Ok();

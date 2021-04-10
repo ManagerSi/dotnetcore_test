@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebFluentValidationTest.Filter;
 using WebFluentValidationTest.Model;
+using WebFluentValidationTest.Model.Response;
 using WebFluentValidationTest.Validator;
 
 namespace WebFluentValidationTest
@@ -29,10 +31,40 @@ namespace WebFluentValidationTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            // *** 统一返回验证的信息，ResponseResult为全局统一参数返回的类 *** 
+            // 无效,需去掉Controller的[ApiController]特性才能起效ModelState
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = (context) =>
+                {
+                    var errors = context.ModelState
+                        .Values
+                        .SelectMany(x => x.Errors
+                            .Select(p => p.ErrorMessage))
+                        .ToList();
+
+                    var result = new BaseResponse
+                    {
+                        Header = new ResponseHeader()
+                        {
+                            StatusCode = 500,
+                            SubStatusCode = 500,
+                            Message = string.Join(",", errors.Select(e => string.Format("{0}", e)).ToList()),
+
+                        }
+                    };
+
+                    return new BadRequestObjectResult(result);
+                };
+            });
+
+            services.AddControllers(opt=> opt.Filters.Add(new BadRequestResultFilter()))
                 //1. add nuget FluentValidation.AspNetCore
                 //2. add this method
-                .AddFluentValidation();
+                .AddFluentValidation(options =>
+                {
+                    options.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                });
 
             //3. add validator
             services.AddTransient<IValidator<Person>, PersonValidator>();
