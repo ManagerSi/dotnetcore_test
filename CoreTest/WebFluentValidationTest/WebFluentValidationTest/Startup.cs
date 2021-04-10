@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebFluentValidationTest.Model;
+using WebFluentValidationTest.Validator;
 
 namespace WebFluentValidationTest
 {
@@ -30,6 +33,12 @@ namespace WebFluentValidationTest
                 //1. add nuget FluentValidation.AspNetCore
                 //2. add this method
                 .AddFluentValidation();
+
+            //3. add validator
+            services.AddTransient<IValidator<Person>, PersonValidator>();
+
+            // 1. Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +48,14 @@ namespace WebFluentValidationTest
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //2 use swagger
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1"); });
+
 
             app.UseHttpsRedirection();
 
