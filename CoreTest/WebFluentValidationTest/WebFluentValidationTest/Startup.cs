@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebFluentValidationTest.Filter;
 using WebFluentValidationTest.Model;
+using WebFluentValidationTest.Model.Request;
 using WebFluentValidationTest.Model.Response;
 using WebFluentValidationTest.Validator;
 
@@ -55,17 +56,22 @@ namespace WebFluentValidationTest
                     return new BadRequestObjectResult(result);
                 };
             });
+            
+            //for all things: api/Controllers/RazorPages 
+            //services.AddMvc();
 
+            //services.AddControllers();//only for api
             services.AddControllers(opt=> opt.Filters.Add(new BadRequestResultFilter()))
                 //1. add nuget FluentValidation.AspNetCore
                 //2. add this method
                 .AddFluentValidation(options =>
                 {
-                    options.RunDefaultMvcValidationAfterFluentValidationExecutes = true;
+                    options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 });
 
             //3. add validator
             services.AddTransient<IValidator<Person>, PersonValidator>();
+            services.AddTransient<IValidator<RequestHeader>, RequestHeaderValidator>();
 
             // 1. Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
