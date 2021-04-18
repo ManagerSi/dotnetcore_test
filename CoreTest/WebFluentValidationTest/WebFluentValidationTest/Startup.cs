@@ -38,9 +38,7 @@ namespace WebFluentValidationTest
                 options.InvalidModelStateResponseFactory = (context) =>
                 {
                     var errors = context.ModelState
-                        .Values
-                        .SelectMany(x => x.Errors
-                            .Select(p => p.ErrorMessage))
+                        .Values.SelectMany(x => x.Errors.Select(p => p.ErrorMessage))
                         .ToList();
 
                     var result = new BaseResponse

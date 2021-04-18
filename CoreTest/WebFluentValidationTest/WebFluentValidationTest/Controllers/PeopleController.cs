@@ -15,10 +15,12 @@ namespace WebFluentValidationTest.Controllers
         [HttpPost]
         public IActionResult Create(Person person)
         {
-            if (!ModelState.IsValid)
-            { // re-render the view when validation failed.
-                return BadRequest(ModelState);
-            }
+            //默认走不到这里(ModelState.IsValid)，会在base.ResultFilter中验证失败，直接返回
+            //所以覆写一个BadRequestResultFilter 
+            //if (!ModelState.IsValid)
+            //{ // re-render the view when validation failed.
+            //    return BadRequest(ModelState);
+            //}
 
             return Ok();
         }

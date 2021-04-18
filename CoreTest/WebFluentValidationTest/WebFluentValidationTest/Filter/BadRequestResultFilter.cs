@@ -33,8 +33,8 @@ namespace WebFluentValidationTest.Filter
                     {
                         Header = new ResponseHeader()
                         {
-                            StatusCode = 500,
-                            SubStatusCode = 500,
+                            StatusCode = 400,
+                            SubStatusCode = 401,
                             Message = sb
                                 .ToString(), //string.Join(",", errors.Select(e => string.Format("{0}", e)).ToList()),
 
