@@ -22,20 +22,21 @@ namespace NetCoreServiceDependencyInjectionTest.Samples
                 }
 
                 //子作用域
-                using (var child = root.CreateScope()) //申请子作用域
+                using (var childScope = root.CreateScope()) //申请子作用域
                 {
+                    var child = childScope.ServiceProvider;
                     Console.WriteLine("-------------child Scope, create first-------------");
                     {
-                        var message = child.ServiceProvider.GetService<IMessage>();  //创建新的，单次用完释放
-                        var account = child.ServiceProvider.GetService<IAccount>();  //使用child作用域的，所用域内不释放
-                        var tool = child.ServiceProvider.GetService<ITool>();        //使用root的对象，root作用域内不释放
+                        var message = child.GetService<IMessage>();  //创建新的，单次用完释放
+                        var account = child.GetService<IAccount>();  //使用child作用域的，所用域内不释放
+                        var tool = child.GetService<ITool>();        //使用root的对象，root作用域内不释放
 
                     }
                     Console.WriteLine("-------------child Scope, create second-------------");
                     {
-                        var message = child.ServiceProvider.GetService<IMessage>();  //创建新的
-                        var account = child.ServiceProvider.GetService<IAccount>();  //使用child作用域的，
-                        var tool = child.ServiceProvider.GetService<ITool>();        //使用root的对象
+                        var message = child.GetService<IMessage>();  //创建新的
+                        var account = child.GetService<IAccount>();  //使用child作用域的，
+                        var tool = child.GetService<ITool>();        //使用root的对象
 
                     }
                     Console.WriteLine("-------------child Scope, disposed-------------");

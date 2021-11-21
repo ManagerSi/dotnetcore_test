@@ -17,6 +17,7 @@ namespace NetCoreServiceDependencyInjectionTest.Samples
                 .BuildServiceProvider())
             {
                 var message = root.GetService<IMessage>();//使用入参最多的那个构造方法
+                var message2 = root.GetRequiredService<IMessage>(); //GetRequiredService --> GetService
 
                 try
                 {
