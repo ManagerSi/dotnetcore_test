@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Node = Leetcode.Problems.populating_next_right_pointers_in_each_node_ii.Node;
 
 namespace Leetcode.Problems
 {

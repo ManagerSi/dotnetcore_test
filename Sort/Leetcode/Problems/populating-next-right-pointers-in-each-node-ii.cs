@@ -1,44 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Node = Leetcode.Problems.populating_next_right_pointers_in_each_node_ii.Node;
 namespace Leetcode.Problems
-{ // Definition for a Node.
-    public class Node
-    {
-        public int val;
-        public Node left;
-        public Node right;
-        public Node next;
-
-        public Node() { }
-
-        public Node(int _val)
-        {
-            val = _val;
-        }
-        public Node(int _val, Node _left, Node _right)
-        {
-            val = _val;
-            left = _left;
-            right = _right;
-        }
-        public Node(int _val, Node _left, Node _right, Node _next)
-        {
-            val = _val;
-            left = _left;
-            right = _right;
-            next = _next;
-        }
-    }
-
+{ 
     /// <summary>
     /// 117. 填充每个节点的下一个右侧节点指针 II
     /// https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/
     /// </summary>
     public class populating_next_right_pointers_in_each_node_ii
     {
-       
+        // Definition for a Node.
+        public class Node
+        {
+            public int val;
+            public Node left;
+            public Node right;
+            public Node next;
+
+            public Node() { }
+
+            public Node(int _val)
+            {
+                val = _val;
+            }
+            public Node(int _val, Node _left, Node _right)
+            {
+                val = _val;
+                left = _left;
+                right = _right;
+            }
+            public Node(int _val, Node _left, Node _right, Node _next)
+            {
+                val = _val;
+                left = _left;
+                right = _right;
+                next = _next;
+            }
+        }
+
+
         /// <summary>
         /// BFS 层次遍历法
         /// </summary>
