@@ -13,20 +13,22 @@ namespace RabbitMqDemo.HostedServices
     {
         private readonly ILogger<SampleHostedService> _logger;
         private BasicPublish _publish;
+        private EasyNetQClientTest _easyNetQClientTest;
 
-        public SampleHostedService(ILogger<SampleHostedService> logger, BasicPublish publish)
+        public SampleHostedService(ILogger<SampleHostedService> logger, BasicPublish publish, EasyNetQClientTest easyNetQClientTest)
         {
             _logger = logger;
             _publish = publish;
+            _easyNetQClientTest = easyNetQClientTest;
         }
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("SampleHostedService start");
 
-            Task.Run(
-                async () => { await _publish.Run(); }
-            );
-            
+            //Task.Run(async () => { await _publish.Run(); });
+            Task.Run(async () => { await _easyNetQClientTest.Run(); });
+
+
 
             return Task.CompletedTask;
         }

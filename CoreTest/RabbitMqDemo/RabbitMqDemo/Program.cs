@@ -29,6 +29,9 @@ namespace RabbitMqDemo
                 {
                     s.AddLogging();
                     s.AddSingleton<BasicPublish>();
+                    s.AddSingleton<EasyNetQClientTest>();
+
+
                     s.AddHostedService<SampleHostedService>();
                 });
     }
