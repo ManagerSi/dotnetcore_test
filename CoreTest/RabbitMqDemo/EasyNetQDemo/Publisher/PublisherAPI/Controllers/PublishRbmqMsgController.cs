@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyNetQ;
+using EasyNetQ.Topology;
 
 namespace Publisher.Controllers
 {
@@ -16,6 +17,39 @@ namespace Publisher.Controllers
         {
             return new JsonResult("ok");
         }
+
+        [HttpGet]
+        [Route("PublishMsage")]
+        public async Task<IActionResult> PublishMsage(string msg, int times =1, string exchangeName="defaultExc", string queueName="defaultQue")
+        {
+            string connectionStr = "host=localhost;username=guest;password=guest";
+
+            using (var bus = RabbitHutch.CreateBus(connectionStr))
+            {
+                msg = msg?? "default msg";
+                Console.WriteLine("PublishDefaultMsage: PubSub.PublishAsync");
+                var exchange = await bus.Advanced.ExchangeDeclareAsync(exchangeName, ExchangeType.Topic, false);
+                var queue = await bus.Advanced.QueueDeclareAsync(queueName, false, false, false);
+                var binding = await bus.Advanced.BindAsync(exchange, queue, "",
+                    new Dictionary<string, object>()
+                    {
+                        //{"id",msg}
+                    });
+                
+                int count = 0;
+                while (count < times)
+                {
+                    var message = new Message<string>(msg);
+                    message.Properties.AppId = msg + "id_"+count;
+                    message.Properties.ReplyTo = "my_reply_queue";
+                    await bus.Advanced.PublishAsync(exchange, queueName, false, message);
+                    count++;
+                }
+            }
+            return new JsonResult("ok");
+        }
+
+        #region For SubscriberConsole
 
         [HttpGet]
         [Route("PublishDefaultMsage")]
@@ -32,7 +66,9 @@ namespace Publisher.Controllers
             return new JsonResult("ok");
         }
 
+        #endregion For SubscriberConsole
 
+        
         [HttpGet]
         [Route("PublishClassMsage")]
         public async Task<IActionResult> PublishClassMsage()

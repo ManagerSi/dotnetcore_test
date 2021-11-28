@@ -3,6 +3,10 @@ using System;
 
 namespace SubscriberConsole
 {
+    //连接
+    //https://www.cnblogs.com/forcesoul/category/1125580.html
+    //https://blog.51cto.com/lhxsoft/3182306
+
     class Program
     {
         static void Main(string[] args)
