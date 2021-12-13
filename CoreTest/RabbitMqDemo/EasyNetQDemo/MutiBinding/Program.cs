@@ -25,17 +25,16 @@ namespace MutiBinding
                 {
                     var config = hostContext.Configuration;
 
-                    services.AddSingleton<IRabbitBusBuilder>(CreateRabbitMqBusBuilder(config));
+                    var rabbitConfig = config.GetSection("RabbitMqConfiguration").Get<RabbitMqConfiguration>();
+                    services.AddSingleton<IRabbitBusBuilder>(CreateRabbitMqBusBuilder(rabbitConfig));
                     
 
                     services.AddHostedService<RbmqConsumerWorker>();
                 })
                 .UseWindowsService();
 
-        private static IRabbitBusBuilder CreateRabbitMqBusBuilder(IConfiguration config)
+        private static IRabbitBusBuilder CreateRabbitMqBusBuilder(RabbitMqConfiguration rabbitConfig)
         {
-            var rabbitConfig = config.GetSection("RabbitMqConfiguration").Get<RabbitMqConfiguration>();
-
             return new RabbitBusBuilder()
                 .UseRabbitMqConfiguration(rabbitConfig);
         }

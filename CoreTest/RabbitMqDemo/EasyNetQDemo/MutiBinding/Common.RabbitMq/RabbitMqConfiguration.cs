@@ -74,6 +74,7 @@ namespace MutiBinding.Common.RabbitMq
         public bool Internal { get; set; } = false;
         public string AlternateExchange { get; set; } = null;
         public bool Delayed { get; set; } = false;
+        public Dictionary<string,object> Args { get; set; }
     }
 
     /// <summary>
@@ -106,6 +107,7 @@ namespace MutiBinding.Common.RabbitMq
        public string DeadLetterRoutingKey { get; set; } = null;
        public int? MaxLength { get; set; } = null;
        public int? MaxLengthBytes { get; set; } = null;
+       public Dictionary<string, object> Args { get; set; }
     }
 
     public class BindingConfiguration

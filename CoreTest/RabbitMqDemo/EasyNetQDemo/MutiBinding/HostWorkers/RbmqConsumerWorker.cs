@@ -23,6 +23,9 @@ namespace MutiBinding.HostWorkers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation("Connect to Rbmq at: {time}", DateTimeOffset.Now);
+            await _rabbitBusBuilder.BuildAsync(stoppingToken);
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
