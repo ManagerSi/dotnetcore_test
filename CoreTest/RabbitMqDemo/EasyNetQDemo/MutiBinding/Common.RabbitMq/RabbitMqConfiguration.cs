@@ -9,6 +9,44 @@ namespace MutiBinding.Common.RabbitMq
 {
     public class RabbitMqConfiguration
     {
+        public string Host { get; set; }
+        public ushort Port { get; set; }
+
+        ///// <summary>
+        /////     Virtual host to connect to
+        ///// </summary>
+        //public string VirtualHost { get; set; }
+
+        ///// <summary>
+        /////     UserName used to connect to the broker
+        ///// </summary>
+        //public string UserName { get; set; }
+
+        ///// <summary>
+        /////     Password used to connect to the broker
+        ///// </summary>
+        //public string Password { get; set; }
+
+        ///// <summary>
+        /////     Prefetch count (default is 50)
+        ///// </summary>
+        //public ushort PrefetchCount { get; set; } = 50;
+
+        ///// <summary>
+        /////     Enables publisher confirms (default is false)
+        ///// </summary>
+        //public bool PublisherConfirms { get; set; }
+
+        ///// <summary>
+        /////     Enables persistent messages (default is true)
+        ///// </summary>
+        //public bool PersistentMessages { get; set; }
+        ///// <summary>
+        /////     Enables mandatory flag for publish (default is false)
+        ///// return a published message which cannot be routed to any queue
+        ///// </summary>
+        //public bool MandatoryPublish { get; set; }
+
         public ConnectionConfiguration Connection { get; set; }
         public ExchangeConfiguration[] Exchanges { get; set; }
         public QueueConfiguration[] Queues { get; set; }

@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "Start": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "QA",
+        "evn":"qa" 
+      }
+    }
+  }
+}

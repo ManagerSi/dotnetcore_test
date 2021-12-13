@@ -19,8 +19,7 @@ namespace MutiBinding.Common.RabbitMq
 
         public IRabbitBusBuilder UseRabbitMqConfiguration(RabbitMqConfiguration rabbitMqConfiguration)
         {
-
-
+            
             return this;
         }
 
