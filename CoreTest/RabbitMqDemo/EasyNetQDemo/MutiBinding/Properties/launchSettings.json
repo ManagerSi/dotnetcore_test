@@ -4,8 +4,7 @@
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "QA",
-        "evn":"qa" 
+        "DOTNET_ENVIRONMENT": "QA"
       }
     }
   }
