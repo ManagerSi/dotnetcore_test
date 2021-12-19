@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubscriberConsole", "..\Eas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublisherAPI", "..\EasyNetQDemo\Publisher\PublisherAPI\PublisherAPI.csproj", "{B8E0580E-364D-4A9A-BABA-8E212B767BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MutiBinding", "..\EasyNetQDemo\MutiBinding\MutiBinding.csproj", "{33CA37B1-562B-4EDE-BA8B-CF5057EB6C9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MutiBinding", "..\EasyNetQDemo\MutiBinding\MutiBinding.csproj", "{33CA37B1-562B-4EDE-BA8B-CF5057EB6C9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqConsumerDemo", "..\RabbitMqConsumerDemo\RabbitMqConsumerDemo.csproj", "{F8E26E91-AFD8-4FE0-8B68-FDD749BE63D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{33CA37B1-562B-4EDE-BA8B-CF5057EB6C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33CA37B1-562B-4EDE-BA8B-CF5057EB6C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33CA37B1-562B-4EDE-BA8B-CF5057EB6C9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E26E91-AFD8-4FE0-8B68-FDD749BE63D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E26E91-AFD8-4FE0-8B68-FDD749BE63D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E26E91-AFD8-4FE0-8B68-FDD749BE63D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E26E91-AFD8-4FE0-8B68-FDD749BE63D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

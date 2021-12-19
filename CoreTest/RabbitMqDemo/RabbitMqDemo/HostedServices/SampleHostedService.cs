@@ -26,7 +26,7 @@ namespace RabbitMqDemo.HostedServices
             _logger.LogInformation("SampleHostedService start");
 
             //Task.Run(async () => { await _publish.Run(); });
-            Task.Run(async () => { await _easyNetQClientTest.Run(); });
+            //Task.Run(async () => { await _easyNetQClientTest.Run(); });
 
 
 

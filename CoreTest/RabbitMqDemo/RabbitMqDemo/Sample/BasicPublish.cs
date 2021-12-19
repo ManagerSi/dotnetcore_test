@@ -16,11 +16,16 @@ namespace RabbitMqDemo.Sample
         {
             _logger = logger;
         }
+
         public async Task Run()
         {
-            _logger.LogInformation($"ManagedThreadId:{Thread.CurrentThread.ManagedThreadId}");
+            await Task.CompletedTask;
+        }
+
+        public async Task PublishToDefaultExchange()
+        {
+            _logger.LogInformation($"PublishToDefaultExchange, ManagedThreadId:{Thread.CurrentThread.ManagedThreadId}");
             var res = await Task.FromResult(10);
-            _logger.LogInformation($"ManagedThreadId:{Thread.CurrentThread.ManagedThreadId}");
 
             ConnectionFactory factory = new ConnectionFactory();
             factory.HostName = "localhost"; 
@@ -29,35 +34,68 @@ namespace RabbitMqDemo.Sample
             factory.Port = 5672;
 
             //创建链接
-            using (var conn = factory.CreateConnection())
+            using var conn = factory.CreateConnection();
+
+            //创建通道
+            using var model = conn.CreateModel();
+            //声明队列
+            model.QueueDeclare("RabbitMqDemo.BasicPublish_test1", false, false, false);
+
+            Console.WriteLine("请输入消息: 输入空值退出");
+            var input = Console.ReadLine();
+            while (!string.IsNullOrEmpty(input))
             {
+                byte[] bytes = Encoding.UTF8.GetBytes(input);
 
-                //创建通道
-                using (var model = conn.CreateModel())
-                {
+                IBasicProperties properties = model.CreateBasicProperties();
+                properties.CorrelationId = $"{Environment.MachineName}_{DateTime.Now.ToString("yyyy-MM-dd_hh:mm:sshhhh")}";
 
-                    //声明队列
-                    model.QueueDeclare("BasicPublish_test1", false, false, true);
+                //Default exchange binding --exchange amp.default direct
+                model.BasicPublish("", "RabbitMqDemo.BasicPublish_test1", false, properties, bytes);
 
-                    Console.WriteLine("请输入消息: 输入空值退出");
-                    var input = Console.ReadLine();
-                    while (!string.IsNullOrEmpty(input))
-                    {
-                        byte[] bytes = Encoding.UTF8.GetBytes(input);
-
-                        IBasicProperties properties = model.CreateBasicProperties();
-                        properties.CorrelationId = $"{Environment.MachineName}_{DateTime.Now.ToString("yyyy-MM-dd_hh:mm:sshhhh")}";
-
-                        //Default exchange binding --exchange amp.default direct
-                        model.BasicPublish("", "BasicPublish_test1", false, properties, bytes);
-
-                        Console.WriteLine("请输入消息:");
-                        input = Console.ReadLine();
-                    }
-                }
+                Console.WriteLine("请输入消息:");
+                input = Console.ReadLine();
             }
+            Console.WriteLine("已退出!");
+        }
 
-            
+        public async Task PublishToDefaultExchange_WithPrefetch()
+        {
+            _logger.LogInformation($"PublishToDefaultExchange_WithPrefetch, ManagedThreadId:{Thread.CurrentThread.ManagedThreadId}");
+            var res = await Task.FromResult(10);
+
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.HostName = "localhost";
+            factory.UserName = "guest";
+            factory.Password = "guest";
+            factory.Port = 5672;
+
+            //创建链接
+            using var conn = factory.CreateConnection();
+
+            //创建通道
+            using var model = conn.CreateModel();
+            //声明队列
+            model.QueueDeclare("RabbitMqDemo.BasicPublish_test1", false, false, false);
+            model.QueueDeclare("RabbitMqDemo.BasicPublish_test2", false, false, false);
+
+            Console.WriteLine("请输入消息: 输入空值退出");
+            var input = Console.ReadLine();
+            while (!string.IsNullOrEmpty(input))
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(input);
+
+                IBasicProperties properties = model.CreateBasicProperties();
+                properties.CorrelationId = $"{Environment.MachineName}_{DateTime.Now.ToString("yyyy-MM-dd_hh:mm:sshhhh")}";
+
+                //Default exchange binding --exchange amp.default direct
+                model.BasicPublish("", "RabbitMqDemo.BasicPublish_test1", false, properties, bytes);
+                model.BasicPublish("", "RabbitMqDemo.BasicPublish_test2", false, properties, bytes);
+
+                Console.WriteLine("请输入消息:");
+                input = Console.ReadLine();
+            }
+            Console.WriteLine("已退出!");
         }
     }
 }

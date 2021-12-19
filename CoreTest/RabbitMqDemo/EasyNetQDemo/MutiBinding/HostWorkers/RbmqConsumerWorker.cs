@@ -36,7 +36,6 @@ namespace MutiBinding.HostWorkers
                 var queue = new Queue("MyTestQueue.test.final.q");
                 _consumer = advanceBus.Consume(
                     queue,
-                    //(message,info,token) => HandleMqMessage<string>(message,info,stoppingToken),
                     HandleMqMessage,
                     config =>
                     {
@@ -55,27 +54,26 @@ namespace MutiBinding.HostWorkers
             }
         }
 
+       
+        //private void HandleMqMessage(byte[] body,MessageProperties properties,MessageReceivedInfo receivedInfo)
+        //{
+        //    var message = Encoding.UTF8.GetString(body);
 
-        private async Task<AckStrategy> HandleMqMessage<T>(IMessage<string> message,
-            MessageReceivedInfo receivedInfo,CancellationToken token)
-        {
-            _logger.LogInformation($"receive MQ message: {message}");
+        //    _logger.LogInformation($"receive MQ message: {message}");
+        //}
 
-            return await Task.FromResult(AckStrategies.Ack);
-        }
-
-        private void HandleMqMessage(byte[] body,
-            MessageProperties properties,
-            MessageReceivedInfo receivedInfo)
+        private Task<AckStrategy> HandleMqMessage(byte[] body, MessageProperties properties, MessageReceivedInfo receivedInfo)
         {
             var message = Encoding.UTF8.GetString(body);
 
             _logger.LogInformation($"receive MQ message: {message}");
-        }
 
+            return Task.FromResult(AckStrategies.Ack);
+        }
         public override void Dispose()
         {
-            _consumer.Dispose();
+            _logger.LogInformation($"MQ Dispose");
+            _consumer?.Dispose();
         }
     }
 }
