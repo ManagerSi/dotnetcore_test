@@ -19,15 +19,23 @@ namespace RabbitMqDemo
         {
             //CreateHostBuilder(args).Build().Run();
             var host = CreateHostBuilder(args).Build();
-            var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
 
             #region basicPublish
 
+            //var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
             //basicPublish.PublishToDefaultExchange()
-                //.ConfigureAwait(false).GetAwaiter().GetResult();
+            //.ConfigureAwait(false).GetAwaiter().GetResult();
 
-            basicPublish.PublishToDefaultExchange_WithPrefetch()
-                .ConfigureAwait(false).GetAwaiter().GetResult();
+            //basicPublish.PublishToDefaultExchange_WithPrefetch()
+            //    .ConfigureAwait(false).GetAwaiter().GetResult();
+            #endregion
+
+            #region Transaction
+
+            var transactionPublish = host.Services.GetService(typeof(TransactionPublish)) as TransactionPublish;
+            transactionPublish.PublishWithTransaction()
+            .ConfigureAwait(false).GetAwaiter().GetResult();
+            
             #endregion
 
         }
@@ -42,6 +50,7 @@ namespace RabbitMqDemo
                 {
                     s.AddLogging();
                     s.AddSingleton<BasicPublish>();
+                    s.AddSingleton<TransactionPublish>();
                     s.AddSingleton<EasyNetQClientTest>();
 
 

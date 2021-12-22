@@ -9,12 +9,19 @@ namespace RabbitMqConsumerDemo
         {
             #region BasicConsume
 
-            Console.WriteLine("---------------BasicConsume!---------------");
+            //Console.WriteLine("---------------BasicConsume!---------------");
             //BasicConsume.ConsumeFromDefaultExchange();
 
-            BasicConsume.ConsumeFromDefaultExchange_WithPrefetch();
+            //BasicConsume.ConsumeFromDefaultExchange_WithPrefetch();
 
-            #endregion;
+            #endregion
+
+            #region Transaction
+
+            Console.WriteLine("---------------Transaction!---------------");
+            TransactionConsume.ConsumeWithTransaction();
+
+            #endregion
         }
     }
 }

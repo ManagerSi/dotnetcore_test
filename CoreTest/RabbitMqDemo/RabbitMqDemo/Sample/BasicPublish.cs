@@ -38,6 +38,7 @@ namespace RabbitMqDemo.Sample
 
             //创建通道
             using var model = conn.CreateModel();
+
             //声明队列
             model.QueueDeclare("RabbitMqDemo.BasicPublish_test1", false, false, false);
 
