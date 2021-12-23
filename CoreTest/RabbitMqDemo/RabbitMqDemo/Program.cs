@@ -22,20 +22,25 @@ namespace RabbitMqDemo
 
             #region basicPublish
 
-            //var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
+            var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
+            
             //basicPublish.PublishToDefaultExchange()
             //.ConfigureAwait(false).GetAwaiter().GetResult();
 
             //basicPublish.PublishToDefaultExchange_WithPrefetch()
             //    .ConfigureAwait(false).GetAwaiter().GetResult();
+
+            basicPublish.PublishWithAck() //确认消息投递到queue中
+                .ConfigureAwait(false).GetAwaiter().GetResult();
+            
             #endregion
 
             #region Transaction
 
-            var transactionPublish = host.Services.GetService(typeof(TransactionPublish)) as TransactionPublish;
-            transactionPublish.PublishWithTransaction()
-            .ConfigureAwait(false).GetAwaiter().GetResult();
-            
+            //var transactionPublish = host.Services.GetService(typeof(TransactionPublish)) as TransactionPublish;
+            //transactionPublish.PublishWithTransaction()
+            //.ConfigureAwait(false).GetAwaiter().GetResult();
+
             #endregion
 
         }

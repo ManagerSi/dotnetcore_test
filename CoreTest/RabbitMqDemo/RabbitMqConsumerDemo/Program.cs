@@ -14,12 +14,14 @@ namespace RabbitMqConsumerDemo
 
             //BasicConsume.ConsumeFromDefaultExchange_WithPrefetch();
 
+            BasicConsume.ConsumeWithAck();
+
             #endregion
 
             #region Transaction
 
-            Console.WriteLine("---------------Transaction!---------------");
-            TransactionConsume.ConsumeWithTransaction();
+            //Console.WriteLine("---------------Transaction!---------------");
+            //TransactionConsume.ConsumeWithTransaction();
 
             #endregion
         }
