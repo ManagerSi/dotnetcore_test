@@ -23,16 +23,16 @@ namespace RabbitMqDemo
             #region basicPublish
 
             var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
-            
+
             //basicPublish.PublishToDefaultExchange()
             //.ConfigureAwait(false).GetAwaiter().GetResult();
 
             //basicPublish.PublishToDefaultExchange_WithPrefetch()
             //    .ConfigureAwait(false).GetAwaiter().GetResult();
 
-            basicPublish.PublishWithAck() //确认消息投递到queue中
-                .ConfigureAwait(false).GetAwaiter().GetResult();
-            
+            //basicPublish.PublishWithAck() //确认消息投递到queue中
+            //    .ConfigureAwait(false).GetAwaiter().GetResult();
+
             #endregion
 
             #region Transaction
@@ -40,6 +40,26 @@ namespace RabbitMqDemo
             //var transactionPublish = host.Services.GetService(typeof(TransactionPublish)) as TransactionPublish;
             //transactionPublish.PublishWithTransaction()
             //.ConfigureAwait(false).GetAwaiter().GetResult();
+
+            #endregion
+
+            #region Rpc
+
+            var rpcPublish = host.Services.GetService(typeof(RpcPublish)) as RpcPublish;
+            Console.WriteLine("请输入消息: 输入空值退出");
+            var input = Console.ReadLine();
+            while (!string.IsNullOrEmpty(input))
+            {
+                var response = rpcPublish.PublishRPC(input)
+                .ConfigureAwait(false).GetAwaiter().GetResult();
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"-- Main thread Get response: {response}");
+
+                Console.WriteLine("请输入消息:");
+                input = Console.ReadLine();
+            }
+            Console.WriteLine("已退出!");
 
             #endregion
 
@@ -57,6 +77,7 @@ namespace RabbitMqDemo
                     s.AddSingleton<BasicPublish>();
                     s.AddSingleton<TransactionPublish>();
                     s.AddSingleton<EasyNetQClientTest>();
+                    s.AddSingleton<RpcPublish>();
 
 
                     s.AddHostedService<SampleHostedService>();

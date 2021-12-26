@@ -14,7 +14,7 @@ namespace RabbitMqConsumerDemo
 
             //BasicConsume.ConsumeFromDefaultExchange_WithPrefetch();
 
-            BasicConsume.ConsumeWithAck();
+            //BasicConsume.ConsumeWithAck();
 
             #endregion
 
@@ -22,6 +22,14 @@ namespace RabbitMqConsumerDemo
 
             //Console.WriteLine("---------------Transaction!---------------");
             //TransactionConsume.ConsumeWithTransaction();
+
+            #endregion
+
+
+            #region Rpc
+
+            Console.WriteLine("---------------Rpc!---------------");
+            new RpcConsume().ConsumeRPC();
 
             #endregion
         }

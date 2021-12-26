@@ -63,6 +63,9 @@ namespace RabbitMqConsumerDemo.Sample
                 {
                     using (IModel channel = connection.CreateModel())
                     {
+                        //默认情况下，RabbitMQ将按顺序将每条消息发送给下一个消费者。平均每个消费者将获得相同数量的消息。这种分发消息的方式叫做循环（round-robin）。
+                        //设置prefetchCount : 1来告知RabbitMQ，在未收到消费端的消息确认时，不再分发消息，也就确保了当消费端处于忙碌状态时，不再分配任务。
+
                         #region 基于信道进行限制
                         {
                             //prefetchSize：预读取的消息内容大小上限(包含)，可以简单理解为消息有效载荷字节数组的最大长度限制，0表示无上限。
@@ -112,6 +115,11 @@ namespace RabbitMqConsumerDemo.Sample
                 Console.WriteLine(e);
             }
         }
+
+        /// <summary>
+        /// 接收消息并告知queue可以删除此消息
+        /// model.BasicAck()
+        /// </summary>
         public static void ConsumeWithAck()
         {
             Console.WriteLine("---------------ConsumeWithAck!---------------");
@@ -162,7 +170,7 @@ namespace RabbitMqConsumerDemo.Sample
             var body = e.Body;
             var message = Encoding.UTF8.GetString(body.ToArray());
             Console.WriteLine($"{DateTime.Now:yyyy/MM/dd hh:mm:ss ffff} Consumer2_Received: {message}");
-        }
+        }         
 
         private static void Consumer_ReceivedWithAck(object sender, BasicDeliverEventArgs e)
         {
@@ -170,7 +178,7 @@ namespace RabbitMqConsumerDemo.Sample
             
             var body = e.Body;
             var message = Encoding.UTF8.GetString(body.ToArray());
-            Console.WriteLine($"{DateTime.Now:yyyy/MM/dd hh:mm:ss ffff} Consumer_Received: {message}");
+            Console.WriteLine($"{DateTime.Now:yyyy/MM/dd hh:mm:ss ffff} ------- Consumer_Received: {message} -------");
 
             Thread.Sleep(TimeSpan.FromSeconds(10));
 
@@ -181,7 +189,8 @@ namespace RabbitMqConsumerDemo.Sample
             }
             else
             {
-                model.BasicReject(e.DeliveryTag, false);//消息处理失败
+                //model.BasicReject(e.DeliveryTag, false);//消息处理失败，丢弃
+                model.BasicNack(e.DeliveryTag, false, true);
                 Console.WriteLine($"{DateTime.Now:yyyy/MM/dd hh:mm:ss ffff} Consumer Return Reject");
             }
         }

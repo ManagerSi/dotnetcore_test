@@ -40,7 +40,11 @@ namespace RabbitMqDemo.Sample
             using var model = conn.CreateModel();
 
             //声明队列
-            model.QueueDeclare("RabbitMqDemo.BasicPublish_test1", false, false, false);
+            model.QueueDeclare("RabbitMqDemo.BasicPublish_test1", //队列名
+                false,  //是否持久化
+                false, //排他性，该队列仅对首次声明的连接可见，并在连接断开时自动删除
+                false, // true 如果该队列没有任何订阅的消费者，则该队列会被自动删除
+                null);  //如果安装了队列优先级插件，可以设置消息优先级
 
             Console.WriteLine("请输入消息: 输入空值退出");
             var input = Console.ReadLine();
@@ -99,6 +103,11 @@ namespace RabbitMqDemo.Sample
             Console.WriteLine("已退出!");
         }
 
+        /// <summary>
+        /// 发布消息并返回成功
+        /// model.WaitForConfirms()
+        /// </summary>
+        /// <returns></returns>
         public async Task PublishWithAck()
         {
             _logger.LogInformation($"PublishToDefaultExchange, ManagedThreadId:{Thread.CurrentThread.ManagedThreadId}");
@@ -112,9 +121,19 @@ namespace RabbitMqDemo.Sample
 
             //创建链接
             using var conn = factory.CreateConnection();
+            conn.CallbackException += Connetion_CallbackException;
+            conn.ConnectionBlocked += Connetion_ConnectionBlocked;
+            conn.ConnectionUnblocked += Connetion_ConnectionUnblocked;
+            //conn.RecoverySucceeded += Connetion_RecoverySucceeded;
+            //conn.ConnectionRecoveryError += Connetion_ConnectionRecoveryError;
+            //连接关闭的时候
+            conn.ConnectionShutdown += Connetion_ConnectionShutdown;
 
             //创建通道
             using var model = conn.CreateModel();
+
+            //broker 发现当前消息无法被路由到指定的 queues 中（如果设置了 mandatory 属性，则 broker 会先发送 basic.return）
+            model.BasicReturn += Channel_BasicReturn;
 
             //声明队列
             model.QueueDeclare("RabbitMqDemo.BasicPublishAck_test1", false, false, false);
@@ -161,6 +180,51 @@ namespace RabbitMqDemo.Sample
                 input = Console.ReadLine();
             }
             Console.WriteLine("已退出!");
+        }
+
+        /// <summary>
+        /// 发布持久化消息
+        /// </summary>
+        /// <returns></returns>
+        public async Task PublishWithStatick()
+        {
+
+        }
+
+
+        private static void Channel_BasicReturn(object sender, RabbitMQ.Client.Events.BasicReturnEventArgs e)
+        {
+            Console.WriteLine("Channel_BasicReturn");
+        }
+
+        private static void Connetion_ConnectionShutdown(object sender, ShutdownEventArgs e)
+        {
+            Console.WriteLine("Connetion_ConnectionShutdown");
+        }
+
+        private static void Connetion_ConnectionUnblocked(object sender, EventArgs e)
+        {
+            Console.WriteLine("Connetion_ConnectionUnblocked");
+        }
+
+        private static void Connetion_ConnectionBlocked(object sender, RabbitMQ.Client.Events.ConnectionBlockedEventArgs e)
+        {
+            Console.WriteLine("Connetion_ConnectionBlocked");
+        }
+
+        private static void Connetion_ConnectionRecoveryError(object sender, RabbitMQ.Client.Events.ConnectionRecoveryErrorEventArgs e)
+        {
+            Console.WriteLine("Connetion_ConnectionRecoveryError");
+        }
+
+        private static void Connetion_RecoverySucceeded(object sender, EventArgs e)
+        {
+            Console.WriteLine("Connetion_RecoverySucceeded");
+        }
+
+        private static void Connetion_CallbackException(object sender, RabbitMQ.Client.Events.CallbackExceptionEventArgs e)
+        {
+            Console.WriteLine("Connetion_CallbackException");
         }
     }
 }
