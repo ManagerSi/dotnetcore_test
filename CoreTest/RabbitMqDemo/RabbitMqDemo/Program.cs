@@ -45,22 +45,32 @@ namespace RabbitMqDemo
 
             #region Rpc
 
-            var rpcPublish = host.Services.GetService(typeof(RpcPublish)) as RpcPublish;
-            Console.WriteLine("请输入消息: 输入空值退出");
-            var input = Console.ReadLine();
-            while (!string.IsNullOrEmpty(input))
-            {
-                var response = rpcPublish.PublishRPC(input)
+            //var rpcPublish = host.Services.GetService(typeof(RpcPublish)) as RpcPublish;
+            //Console.WriteLine("请输入消息: 输入空值退出");
+            //var input = Console.ReadLine();
+            //while (!string.IsNullOrEmpty(input))
+            //{
+            //    var response = rpcPublish.PublishRPC(input)
+            //    .ConfigureAwait(false).GetAwaiter().GetResult();
+
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //    Console.WriteLine($"-- Main thread Get response: {response}");
+
+            //    Console.WriteLine("请输入消息:");
+            //    input = Console.ReadLine();
+            //}
+            //Console.WriteLine("已退出!");
+            //rpcPublish.Close();
+
+            #endregion
+
+            #region DirectPublish
+
+            var directPublish = host.Services.GetService(typeof(DirectPublish)) as DirectPublish;
+            directPublish.Publish()
                 .ConfigureAwait(false).GetAwaiter().GetResult();
 
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"-- Main thread Get response: {response}");
-
-                Console.WriteLine("请输入消息:");
-                input = Console.ReadLine();
-            }
             Console.WriteLine("已退出!");
-            rpcPublish.Close();
 
             #endregion
 
@@ -75,10 +85,11 @@ namespace RabbitMqDemo
                 }).ConfigureServices(s =>
                 {
                     s.AddLogging();
+                    s.AddSingleton<EasyNetQClientTest>();
                     s.AddSingleton<BasicPublish>();
                     s.AddSingleton<TransactionPublish>();
-                    s.AddSingleton<EasyNetQClientTest>();
                     s.AddSingleton<RpcPublish>();
+                    s.AddSingleton<DirectPublish>();
 
 
                     s.AddHostedService<SampleHostedService>();

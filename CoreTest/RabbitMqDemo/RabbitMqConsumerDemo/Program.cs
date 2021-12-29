@@ -28,10 +28,18 @@ namespace RabbitMqConsumerDemo
 
             #region Rpc
 
-            Console.WriteLine("---------------Rpc!---------------");
-            var rpcConsume= new RpcConsume();
-            rpcConsume.ConsumeRPC();
-            rpcConsume.Close();
+            //Console.WriteLine("---------------Rpc!---------------");
+            //var rpcConsume= new RpcConsume();
+            //rpcConsume.ConsumeRPC();
+            //rpcConsume.Close();
+
+            #endregion
+
+
+            #region direct
+
+            Console.WriteLine("---------------Direct Consume!---------------");
+            DirectConsumer.Consume();
 
             #endregion
         }
