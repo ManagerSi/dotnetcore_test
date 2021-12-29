@@ -29,7 +29,9 @@ namespace RabbitMqConsumerDemo
             #region Rpc
 
             Console.WriteLine("---------------Rpc!---------------");
-            new RpcConsume().ConsumeRPC();
+            var rpcConsume= new RpcConsume();
+            rpcConsume.ConsumeRPC();
+            rpcConsume.Close();
 
             #endregion
         }

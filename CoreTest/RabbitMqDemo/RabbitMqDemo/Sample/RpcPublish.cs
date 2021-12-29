@@ -84,5 +84,13 @@ namespace RabbitMqDemo.Sample
             return souceTask.Task;
         }
 
+
+        public void Close()
+        {
+            _model?.Close();
+            _model?.Dispose();
+            _connection?.Close();
+            _connection?.Dispose();
+        }
     }
 }

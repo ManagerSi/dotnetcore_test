@@ -75,5 +75,13 @@ namespace RabbitMqConsumerDemo.Sample
             model.BasicAck(deliveryTag: e.DeliveryTag, multiple: false);
 
         }
+
+        public void Close()
+        {
+            _model?.Close();
+            _model?.Dispose();
+            _connection?.Close();
+            _connection?.Dispose();
+        }
     }
 }

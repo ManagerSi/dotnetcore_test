@@ -22,7 +22,7 @@ namespace RabbitMqDemo
 
             #region basicPublish
 
-            var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
+            //var basicPublish = host.Services.GetService(typeof(BasicPublish)) as BasicPublish;
 
             //basicPublish.PublishToDefaultExchange()
             //.ConfigureAwait(false).GetAwaiter().GetResult();
@@ -60,6 +60,7 @@ namespace RabbitMqDemo
                 input = Console.ReadLine();
             }
             Console.WriteLine("ÒÑÍË³ö!");
+            rpcPublish.Close();
 
             #endregion
 

@@ -9,6 +9,9 @@ using RabbitMQ.Client;
 
 namespace RabbitMqDemo.Sample
 {
+    /// <summary>
+    /// https://gist.github.com/pizycki/5c16185bdce593447b3b561896776463#file-client-cs-L59
+    /// </summary>
     public class BasicPublish
     {
         private readonly ILogger<BasicPublish> _logger;
