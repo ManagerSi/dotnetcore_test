@@ -25,7 +25,6 @@ namespace RabbitMqConsumerDemo
 
             #endregion
 
-
             #region Rpc
 
             //Console.WriteLine("---------------Rpc!---------------");
@@ -35,13 +34,20 @@ namespace RabbitMqConsumerDemo
 
             #endregion
 
-
             #region direct
 
-            Console.WriteLine("---------------Direct Consume!---------------");
-            DirectConsumer.Consume();
+            //Console.WriteLine("---------------Direct Consume!---------------");
+            //DirectConsumer.Consume();
 
             #endregion
+
+            #region Fanout
+
+            Console.WriteLine("---------------Fanout Consume!---------------");
+            FanoutConsumer.Consume();
+
+            #endregion
+            
         }
     }
 }

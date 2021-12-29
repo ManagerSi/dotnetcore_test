@@ -66,11 +66,18 @@ namespace RabbitMqDemo
 
             #region DirectPublish
 
-            var directPublish = host.Services.GetService(typeof(DirectPublish)) as DirectPublish;
-            directPublish.Publish()
-                .ConfigureAwait(false).GetAwaiter().GetResult();
+            //var directPublish = host.Services.GetService(typeof(DirectPublish)) as DirectPublish;
+            //directPublish.Publish()
+            //    .ConfigureAwait(false).GetAwaiter().GetResult();
+            
+            #endregion
 
-            Console.WriteLine("ÒÑÍË³ö!");
+
+            #region DirectPublish
+
+            var fanoutPublish = host.Services.GetService(typeof(FanoutPublish)) as FanoutPublish;
+            fanoutPublish.Publish()
+                .ConfigureAwait(false).GetAwaiter().GetResult();
 
             #endregion
 
@@ -90,6 +97,7 @@ namespace RabbitMqDemo
                     s.AddSingleton<TransactionPublish>();
                     s.AddSingleton<RpcPublish>();
                     s.AddSingleton<DirectPublish>();
+                    s.AddSingleton<FanoutPublish>();
 
 
                     s.AddHostedService<SampleHostedService>();
