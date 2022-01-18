@@ -21,8 +21,7 @@ namespace RabbitMqDemo.Sample
         public async Task Publish()
         {
             _logger.LogInformation($"FanoutPublish, ManagedThreadId:{Thread.CurrentThread.ManagedThreadId}");
-            var res = await Task.FromResult(10);
-
+            
             ConnectionFactory factory = new ConnectionFactory();
             factory.HostName = "localhost";
             factory.UserName = "guest";
@@ -75,6 +74,8 @@ namespace RabbitMqDemo.Sample
                     null,
                     body
                     );
+
+                await Task.Delay(TimeSpan.FromSeconds(2));
             }
 
             _logger.LogInformation("已退出!");
