@@ -83,12 +83,19 @@ namespace RabbitMqDemo
 
             #region TopicPublish
 
-            var topicPublish = host.Services.GetService(typeof(TopicPublish)) as TopicPublish;
-            topicPublish.Publish()
-                .ConfigureAwait(false).GetAwaiter().GetResult();
+            //var topicPublish = host.Services.GetService(typeof(TopicPublish)) as TopicPublish;
+            //topicPublish.Publish()
+            //    .ConfigureAwait(false).GetAwaiter().GetResult();
 
             #endregion
 
+            #region TopicPublish
+
+            var headerPublish = host.Services.GetService(typeof(HeaderPublish)) as HeaderPublish;
+            headerPublish.Publish()
+                .ConfigureAwait(false).GetAwaiter().GetResult();
+
+            #endregion
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -107,6 +114,7 @@ namespace RabbitMqDemo
                     s.AddSingleton<DirectPublish>();
                     s.AddSingleton<FanoutPublish>();
                     s.AddSingleton<TopicPublish>();
+                    s.AddSingleton<HeaderPublish>();
 
 
                     s.AddHostedService<SampleHostedService>();

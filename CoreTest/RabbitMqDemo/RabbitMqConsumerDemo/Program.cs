@@ -50,8 +50,16 @@ namespace RabbitMqConsumerDemo
 
             #region Fanout
 
-            Console.WriteLine("---------------Topic Consume!---------------");
-            TopicConsumer.Consume();
+            //Console.WriteLine("---------------Topic Consume!---------------");
+            //TopicConsumer.Consume();
+
+            #endregion
+
+
+            #region Fanout
+
+            Console.WriteLine("---------------Header Consume!---------------");
+            HeaderConsumer.Consume();
 
             #endregion
         }
