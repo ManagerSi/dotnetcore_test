@@ -10,6 +10,11 @@ namespace Leetcode.Problems
     /// </summary>
     public class add_digits
     {
+        /// <summary>
+        /// 暴力破解
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
         public int AddDigits(int num)
         {
             if (num < 10) return num;
@@ -28,6 +33,35 @@ namespace Leetcode.Problems
             }
 
             return temp;
+        }
+
+        /// <summary>
+        ///  X = 100*a + 10*b + c = 99*a + 9*b + (a+b+c)；所以对9取余即可。
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public int AddDigits_V2(int num)
+        {
+            return (num - 1) % 9 + 1;
+        }
+
+        /// <summary>
+        /// 暴力破解 - 递归
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public int AddDigits_V3(int num)
+        {
+            if (num < 10) return num;
+
+            var temp = 0;
+            while (num > 0)
+            {
+                temp += num % 10;
+                num = num / 10;
+            }
+
+            return AddDigits_V3(temp);
         }
     }
 }

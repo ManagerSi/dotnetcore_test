@@ -18,5 +18,20 @@ namespace LeetcodeTests
         {
             return target.AddDigits(num);
         }
+
+
+        [TestCase(38, ExpectedResult = 2)]
+        [TestCase(10, ExpectedResult = 1)]
+        public int test_V2(int num)
+        {
+            return target.AddDigits_V2(num);
+        }
+
+        [TestCase(38, ExpectedResult = 2)]
+        [TestCase(10, ExpectedResult = 1)]
+        public int test_V3(int num)
+        {
+            return target.AddDigits_V3(num);
+        }
     }
 }
