@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using IOCDemo.V1.IOCAttribute;
 
 namespace IOCDemo.V1.Factory
 {
@@ -47,7 +48,21 @@ namespace IOCDemo.V1.Factory
                 paraObjects[i] = CreateInstance(parameterInfos[i].ParameterType);
             }
 
-            return Activator.CreateInstance(type, paraObjects);
+            //构造参数注入对象
+            var obj = Activator.CreateInstance(type, paraObjects);
+
+            //属性注入
+            foreach (var propertyInfo in type.GetProperties())
+            {
+                var attribute = propertyInfo.GetCustomAttributes(typeof(IOCPropertyInject), false).FirstOrDefault();
+                if (attribute != null)
+                {
+                    var propObj = CreateInstance(propertyInfo.PropertyType);
+                    propertyInfo.SetValue(obj, propObj);
+                }
+            }
+           
+            return obj;
         }
 
         public object GetInstent(string type)
