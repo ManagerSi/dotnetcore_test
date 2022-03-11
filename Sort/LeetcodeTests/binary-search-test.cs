@@ -7,6 +7,7 @@ using NUnit.Framework.Internal;
 
 namespace LeetcodeTests
 {
+
     public class binary_search_test
     {
         private binary_search _target;

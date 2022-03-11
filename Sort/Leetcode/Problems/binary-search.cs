@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Leetcode.Problems
 {
+    /// <summary>
+    /// 704. 二分查找
+    /// https://leetcode-cn.com/problems/binary-search/
+    /// </summary>
     public class binary_search
     {
         public int Search(int[] nums, int target)
