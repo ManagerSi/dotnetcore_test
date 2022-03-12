@@ -1,52 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Leetcode.Problems;
+using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace LeetcodeTests
 {
     public class n_ary_tree_postorder_traversal_test
     {
-        // Definition for a Node.
-        public class Node
+        n_ary_tree_postorder_traversal target = new n_ary_tree_postorder_traversal();
+
+        static IEnumerable<TestCaseData> GetTestCase()
         {
-            public int val;
-            public IList<Node> children;
-
-            public Node() { }
-
-            public Node(int _val)
-            {
-                val = _val;
-            }
-
-            public Node(int _val, IList<Node> _children)
-            {
-                val = _val;
-                children = _children;
-            }
-        }
-
-        public IList<int> Postorder(Node root)
-        {
-            if(root == null) return new List<int>();
-
-            List<int> list = new List<int>();
-            DFS(root, ref list);
-            return list.ToArray();
-        }
-
-        public void DFS(Node root, ref List<int> list)
-        {
-            if (root == null) return;
-
-            if(root.children != null)
-            {
-                foreach (var child in root.children)
+            yield return new TestCaseData( new n_ary_tree_postorder_traversal.Node(1, new List<n_ary_tree_postorder_traversal.Node>()
                 {
-                    DFS(child, ref list);
-                }
-            }
-            list.Add(root.val);
+                    new n_ary_tree_postorder_traversal.Node(3,new List<n_ary_tree_postorder_traversal.Node>()
+                    {
+                        new n_ary_tree_postorder_traversal.Node(5),
+                        new n_ary_tree_postorder_traversal.Node(6),
+                    }),
+                    new n_ary_tree_postorder_traversal.Node(2),
+                    new n_ary_tree_postorder_traversal.Node(4)
+                })).Returns("5,6,3,2,4,1");
+        }
+
+        [Test]
+        [TestCaseSource("GetTestCase")]
+        public string test(n_ary_tree_postorder_traversal.Node root)
+        {
+            var result = target.Postorder(root);
+            return string.Join(',',result);
         }
     }
 }
