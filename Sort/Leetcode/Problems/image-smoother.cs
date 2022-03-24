@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Leetcode.Problems
 {
+    /// <summary>
+    /// 661. 图片平滑器
+    /// https://leetcode-cn.com/problems/image-smoother/
+    /// </summary>
     public class image_smoother
     {
         public int[][] ImageSmoother(int[][] img)
