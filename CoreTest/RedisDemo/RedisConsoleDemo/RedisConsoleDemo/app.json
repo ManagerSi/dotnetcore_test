@@ -1,0 +1,8 @@
+{
+  "Redis": {
+
+    "RedisExchangeHosts": "127.0.0.1:6379,allowadmin=true",
+    "SysPrefixKey": "jerry_demo:"
+  },
+  "log": "abc" 
+}

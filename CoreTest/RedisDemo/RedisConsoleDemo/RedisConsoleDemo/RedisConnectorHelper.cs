@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -21,7 +22,6 @@ namespace RedisConsoleDemo
 
         private static ConnectionMultiplexer CreateRedisConnect()
         {
-
             //StackExchange.redsi 支持 Redis 集群;
             // string connString = "127.0.0.1:6379,127.0.0.1:6380";
             //string connString = "127.0.0.1:6379";
@@ -106,6 +106,49 @@ namespace RedisConsoleDemo
 
 
 
+        #endregion
+
+        #region string
+
+
+        public string stringGet(string key)
+        {
+            return GetDatabase().StringGet(key);
+        }
+
+        public bool stringSet(string key, string keyValue, TimeSpan time)
+        {
+            return GetDatabase().StringSet(key, keyValue, time);
+        }
+
+        public bool stringSet<T>(string key, T keyValue, TimeSpan time)
+        {
+            return GetDatabase().StringSet(key, JsonConvert.SerializeObject(keyValue), time);
+        }
+
+        public async Task<bool> taskStringSet(string key, string keyValue)
+        {
+            return await GetDatabase().StringSetAsync(key, keyValue);
+        }
+
+        #endregion
+
+        #region Subscribe
+
+        public static long Publish<T>(string topic, T msg)
+        {
+            var subscriber = GetRedisConnect.GetSubscriber();
+            return subscriber.Publish(topic, JsonConvert.SerializeObject(msg));
+        }
+
+        public static void Subscriber(string topic, Action<string> action)
+        {
+            var subscriber = GetRedisConnect.GetSubscriber();
+            subscriber.Subscribe(topic, (channel, message) =>
+            {
+                action(message);
+            });
+        }
         #endregion
     }
 }
