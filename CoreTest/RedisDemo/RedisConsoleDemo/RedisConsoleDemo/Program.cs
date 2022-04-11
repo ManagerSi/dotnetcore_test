@@ -16,7 +16,8 @@ namespace RedisConsoleDemo
             //StackExchangeDemo.MainDemo();
 
             Console.WriteLine("MessageQueue demo");
-            MqByList.Demo();
+            //MqByList.Demo();
+            BlockingMqByList.Demo();
 
             Console.ReadKey();
 

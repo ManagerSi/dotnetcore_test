@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using ServiceStack.Redis;
 
 namespace RedisConsoleDemo.MessageQueueDemo
@@ -22,27 +23,39 @@ namespace RedisConsoleDemo.MessageQueueDemo
         public static void Demo()
         {
             //  redisClient.Password = "123";
-            foreach (var i in Enumerable.Range(1,20))
-            {
-                redisClient.EnqueueItemOnList("QueueTest:queue", $"Massage {i}");
-            }
-
-            Console.WriteLine("send 20 msg to list 'QueueTest:queue'");
-
+            Task.Run(() => InsertMsgToQueue());
+            
             Timer t = new Timer((o) =>
             {
-                var value = redisClient.DequeueItemFromList("QueueTest:queue");
-                if (string.IsNullOrWhiteSpace(value))
+                using var client = redisClientManager.GetClient();
+                var value = client.DequeueItemFromList("QueueTest:queue");
+                Console.WriteLine(string.IsNullOrWhiteSpace(value) ? "队列中数据不存在！" : $"receive msg: {value}");
+            }, null, 0, 100);
+            Console.Read();
+        }
+
+        private static void InsertMsgToQueue()
+        {
+            while (true)
+            {
+                try
                 {
-                    Console.WriteLine("队列中数据不存在！");
+                    using var client = redisClientManager.GetClient();
+                    foreach (var i in Enumerable.Range(1, 20))
+                    {
+                        client.EnqueueItemOnList("QueueTest:queue", $"Massage {i}");
+                    }
+                    Console.WriteLine("send 20 msg to list 'QueueTest:queue'");
                 }
-                else
+                catch (Exception e)
                 {
-                    Console.WriteLine($"receive msg: {value}");
+                    Console.WriteLine(e);
+                    throw;
                 }
 
-            }, null, 0, 500);
-            Console.Read();
+                Thread.Sleep(2500);
+            }
+
         }
     }
 }
