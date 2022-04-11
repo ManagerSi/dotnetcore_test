@@ -9,6 +9,9 @@ using StackExchange.Redis;
 
 namespace RedisConsoleDemo
 {
+    /// <summary>
+    /// StackExchange.Redis helper
+    /// </summary>
     public class RedisConnectorHelper
     {
         private static Lazy<ConnectionMultiplexer> _redisConnect;

@@ -8,7 +8,7 @@ namespace RedisHelperTest
     public class RedisConnectionHelp_Test
     {
         [Test]
-        public void test()
+        public void RedisConnectionHelpTest()
         {
             //var rediskey = ConfigurationManager.AppSettings["redisKey"];
             //var str = RedisConnectionHelp.SysCustomKey;
