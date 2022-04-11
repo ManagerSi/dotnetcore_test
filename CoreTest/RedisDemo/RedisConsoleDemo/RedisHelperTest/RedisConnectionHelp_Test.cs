@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using RedisConsoleDemo.RedisHelper;
 using System;
 using System.Configuration;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
-namespace RedisConsoleDemo.RedisHelper
+namespace RedisConsoleDemo.StackExchangeHelper
 {
 
     /// <summary>

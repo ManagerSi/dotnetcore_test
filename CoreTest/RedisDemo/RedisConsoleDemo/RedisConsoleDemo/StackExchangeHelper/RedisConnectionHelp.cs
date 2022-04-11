@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Text;
 using StackExchange.Redis;
 
-namespace RedisConsoleDemo.RedisHelper
+namespace RedisConsoleDemo.StackExchangeHelper
 {
     /// <summary>
     /// ConnectionMultiplexer对象管理帮助类

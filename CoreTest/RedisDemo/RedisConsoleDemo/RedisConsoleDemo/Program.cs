@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using StackExchange.Redis;
+using RedisConsoleDemo.MessageQueueDemo;
 
 namespace RedisConsoleDemo
 {
@@ -16,11 +9,14 @@ namespace RedisConsoleDemo
         {
             Console.WriteLine("Hello World!");
             
-            Console.WriteLine("ServiceStackDemo!");
+            //Console.WriteLine("ServiceStackDemo!");
             //ServiceStackDemo.MainDemo();
 
-            Console.WriteLine("StackExchangeDemo!");
-            StackExchangeDemo.MainDemo();
+            //Console.WriteLine("StackExchangeDemo!");
+            //StackExchangeDemo.MainDemo();
+
+            Console.WriteLine("MessageQueue demo");
+            MqByList.Demo();
 
             Console.ReadKey();
 
