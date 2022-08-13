@@ -15,7 +15,6 @@ namespace Leetcode.Problems
         private TreeNode _nextNode=null;
         private List<TreeNode> _list = new List<TreeNode>();
 
-
         public complete_binary_tree_inserter(TreeNode root)
         {
             _root = root;
