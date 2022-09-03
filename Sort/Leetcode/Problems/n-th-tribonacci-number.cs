@@ -34,5 +34,30 @@ namespace Leetcode.Problems
             if (n == 4) return 4;
             return 2 * Tribonacci_V1(n - 1) - Tribonacci_V1(n - 4);
         }
+
+        /// <summary>
+        /// 动态规划:使用三个变量，从前往后算一遍即可。
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int Tribonacci_V2(int n)
+        {
+
+            if (n == 0) return 0;
+            if (n == 1) return 1;
+            if (n == 2) return 1;
+
+            int a = 0, b = 1, c = 1;
+            int res = 0;
+            for (int i = 3; i <= n; ++i)
+            {
+                res = a + b + c;
+                a = b;
+                b = c;
+                c = res;
+            }
+
+            return res;
+        }
     }
 }
