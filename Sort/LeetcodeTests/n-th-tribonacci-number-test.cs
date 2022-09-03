@@ -48,6 +48,17 @@ namespace LeetcodeTests
         [TestCase(2, ExpectedResult = 1)]
         [TestCase(4, ExpectedResult = 4)]
         [TestCase(23, ExpectedResult = 410744)]
+        public int testV1_2(int n)
+        {
+            return target.Tribonacci_V1_1(n);
+        }
+
+
+        [TestCase(0, ExpectedResult = 0)]
+        [TestCase(1, ExpectedResult = 1)]
+        [TestCase(2, ExpectedResult = 1)]
+        [TestCase(4, ExpectedResult = 4)]
+        [TestCase(23, ExpectedResult = 410744)]
         public int testV2_1(int n)
         {
             return target.Tribonacci_V2(n);

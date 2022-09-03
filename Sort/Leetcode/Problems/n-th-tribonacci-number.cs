@@ -35,6 +35,28 @@ namespace Leetcode.Problems
             return 2 * Tribonacci_V1(n - 1) - Tribonacci_V1(n - 4);
         }
 
+
+        private Dictionary<int,int> _cache = new Dictionary<int, int>();
+        /// <summary>
+        /// 递归优化-加缓存
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int Tribonacci_V1_1(int n)
+        {
+            if (n == 0) return 0;
+            if (n == 1) return 1;
+            if (n == 2) return 1;
+            if (n == 3) return 2;
+            if (n == 4) return 4;
+            if (_cache.ContainsKey(n)) return _cache[n];
+
+            var result = 2 * Tribonacci_V1(n - 1) - Tribonacci_V1(n - 4);
+            if(_cache.ContainsKey(n))
+                _cache.Add(n,result);
+            return result;
+        }
+
         /// <summary>
         /// 动态规划:使用三个变量，从前往后算一遍即可。
         /// </summary>
