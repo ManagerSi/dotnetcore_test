@@ -1,4 +1,15 @@
+using NLog.Web;
+using NLog.Targets;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//use nlog
+builder.WebHost.ConfigureAppConfiguration(webBuilder =>
+{
+    NLogBuilder.ConfigureNLog($"nlog.config");
+    //NLog.LogManager.Setup().LoadConfigurationFromAppSettings("nlog.config", optional: false);
+});
+builder.WebHost.UseNLog(); 
 
 // Add services to the container.
 
